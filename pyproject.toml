@@ -1,0 +1,11 @@
+[project]
+name = "shrbot"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "discord-py>=2.7.1",
+    "logging>=0.4.9.6",
+    "python-dotenv>=1.2.2",
+]
