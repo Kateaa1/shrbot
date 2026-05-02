@@ -1,8 +1,0 @@
-Shrbot
-
-Assign "shrbcat" role to user
-If user has "shrbcat" role:
-    they can use a !cat command which will send a random shrbo cat image
-If user does not have "shrbcat" role:
-    show message explaining how to get role
-Remove "shrbcat role"
