@@ -53,6 +53,12 @@ async def on_ready():
 ############
 
 
+@bot.command()
+async def heartbeat(ctx):
+    await ctx.channel.send(f"{ctx.author.mention} I am online!")
+    print(f"Heartbeat request answered! {current_time}")
+
+
 # Assigns shrbcat role
 @bot.command()
 async def assign(ctx):
@@ -105,6 +111,7 @@ async def shrbhelp(ctx):
     await ctx.send(
         f"{ctx.author.mention} to use Shrbot use these commands!\n!assign: Assigns shrbcat role\n!unassign: Removes Shrbcat role\n!sendcat: Sends a cat picture\n!shrbhelp: Displays this message"
     )
+    print(f"{ctx.author} needed help! {current_time}")
 
 
 # Run the bot
