@@ -100,5 +100,12 @@ async def norole(ctx, error):
         print(f"{ctx.author} is not a shrbcat {current_time}")
 
 
+@bot.command()
+async def shrbhelp(ctx):
+    await ctx.send(
+        f"{ctx.author.mention} to use Shrbot use these commands!\n!assign: Assigns shrbcat role\n!unassign: Removes Shrbcat role\n!sendcat: Sends a cat picture\n!shrbhelp: Displays this message"
+    )
+
+
 # Run the bot
 bot.run(discord_token, log_handler=logger, log_level=logging.ERROR)
