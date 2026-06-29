@@ -13,8 +13,12 @@ from dotenv import load_dotenv
 load_dotenv()
 discord_token = os.getenv("DISCORD_API_KEY", "")  # Don't leak this lmao
 
-now = datetime.now()
-current_time = now.strftime("%H:%M:%S")
+
+def get_time():
+    now = datetime.now()
+    current_time = now.strftime("%H:%M:%S")
+    return current_time
+
 
 # path to images
 image_directory = Path(os.getenv("IMAGE_PATH", ""))
@@ -45,7 +49,7 @@ shrbot_role = "shrbcat"
 # Init the bot
 @bot.event
 async def on_ready():
-    print(f"Shrbot is ready {current_time}")
+    print(f"Shrbot is ready {get_time()}")
 
 
 ############
@@ -56,7 +60,7 @@ async def on_ready():
 @bot.command()
 async def heartbeat(ctx):
     await ctx.channel.send(f"{ctx.author.mention} I am online!")
-    print(f"Heartbeat request answered! {current_time}")
+    print(f"Heartbeat request answered! {get_time()}")
 
 
 # Assigns shrbcat role
@@ -71,7 +75,7 @@ async def assign(ctx):
         await ctx.send(f"{ctx.author.mention} was just assigned {role}")
     else:
         await ctx.send(f"{ctx.author.mention} Role does not exist!")
-        print(f"failed to assign {role} to {ctx.author} {current_time}")
+        print(f"failed to assign {role} to {ctx.author} {get_time()}")
 
 
 @bot.command()
@@ -82,36 +86,36 @@ async def unassign(ctx):
         await ctx.author.remove_roles(role)
         print(f"Removed {role} from {ctx.author}")
         # Confirms role was added!
-        await ctx.send(f"{ctx.author.mention} just had {role} removed {current_time}")
+        await ctx.send(f"{ctx.author.mention} just had {role} removed {get_time()}")
     else:
         await ctx.send(f"{ctx.author.mention} Role does not exist!")
-        print(f"failed to remove {role} from {ctx.author} {current_time}")
+        print(f"failed to remove {role} from {ctx.author} {get_time()}")
 
 
 @bot.command()
 @commands.has_role(shrbot_role)
 # Needs img perms and access to img function
-async def sendcat(ctx):
+async def cat(ctx):
     shrbcat = pull_image()
     await ctx.send(file=discord.File(shrbcat))
-    print(f"{shrbcat} sent! {current_time}")
+    print(f"{shrbcat} sent! {get_time()}")
 
 
-@sendcat.error
+@cat.error
 async def norole(ctx, error):
     if isinstance(error, commands.MissingRole):
         await ctx.send(
             f"{ctx.author.mention} to use that command you need the shrbcat role!\nTo get that role use !assign"
         )
-        print(f"{ctx.author} is not a shrbcat {current_time}")
+        print(f"{ctx.author} is not a shrbcat {get_time()}")
 
 
 @bot.command()
 async def shrbhelp(ctx):
     await ctx.send(
-        f"{ctx.author.mention} to use Shrbot use these commands!\n!assign: Assigns shrbcat role\n!unassign: Removes Shrbcat role\n!sendcat: Sends a cat picture\n!shrbhelp: Displays this message"
+        f"{ctx.author.mention} to use Shrbot use these commands!\n!assign: Assigns shrbcat role\n!unassign: Removes Shrbcat role\n!cat: Sends a cat picture\n!shrbhelp: Displays this message"
     )
-    print(f"{ctx.author} needed help! {current_time}")
+    print(f"{ctx.author} needed help! {get_time()}")
 
 
 # Run the bot
